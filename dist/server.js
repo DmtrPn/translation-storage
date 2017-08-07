@@ -4,16 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const _ = require('lodash');
-
-
-const DATA_PATH = '../data/translations.json';
-
-const fileData = fs.readFileSync(path.join(__dirname, DATA_PATH), 'utf8');
-
-
-let translationsData = JSON.parse(fileData);
-let translationsCount = translationsData.length;
+const routes = require('./routes/routes');
 
 const app = express();
 
@@ -28,36 +19,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/api/translations', (req, res) => {
-    const data = {};
-    data.translations = _.reduce(translationsData, function(acc, element) {
-        acc.push({
-            id: element.id,
-            key: element.key
-        });
-        return acc;
-    }, []);
-    data.count = translationsCount;
-    res.send(data);
-});
-
-app.get('/api/translations/:id', (req, res) => {
-    const translation = _.filter(translationsData, function(translation) {
-        return translation.id == req.params.id;
-    });
-    res.send(translation[0]);
-});
-
-app.put('/api/translations/:id', (req, res) => {
-    const translation = _.filter(translationsData, function(translation) {
-        return translation.id == req.params.id;
-    });
-
-    if (!translation) return res.sendStatus(404);
-    translation[0].values = req.body.values || translation.values;
-    fs.writeFileSync(path.join(__dirname, DATA_PATH), JSON.stringify(translationsData), 'utf8');
-    res.json(translation[0]);
-});
+app.use(routes);
 
 app.get('*', (req, res) => {
     const staticPath = path.join(__dirname, '../public/index.html');
