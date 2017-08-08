@@ -92,8 +92,8 @@ input {
 main {
     overflow: hidden;
 
-    width: 700px;
-    margin: 70px auto;
+    width: 750px;
+    margin: 20px auto;
 
     border-radius: 2px;
     background: #ffffff;
@@ -108,8 +108,8 @@ header {
     text-align: center;
     text-transform: uppercase;
 
-    color: white;
-    background-color: #222222;
+    color: #d4d2ff;
+    background-color: #112677;
 
     align-items: center;
 }
@@ -119,7 +119,7 @@ header h1 {
 
     margin: 1rem auto;
 
-    color: #00d8ff;
+    color: #ffffff;
 }
 
 /* Stats */
@@ -129,21 +129,18 @@ header h1 {
 
 .stats table {
     margin: auto;
+    font-size: 14px;
 }
 
 .stats th {
     text-align: right;
     letter-spacing: 2px;
 
-    font-size: .7em;
     font-weight: normal;
 }
 
 .stats td {
     text-align: left;
-
-    font-family: monospace;
-    font-size: 1.5rem;
 }
 
 
