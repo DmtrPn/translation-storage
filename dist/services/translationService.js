@@ -42,7 +42,7 @@ class TranslationsService {
 
         db.get().collection('translations').insertOne(newTranslation,
             function (err, result) {
-                cb(err, result, newTranslation)
+                cb(err, result, newTranslation);
             }
         );
     }
@@ -52,7 +52,7 @@ class TranslationsService {
             { _id: ObjectID(id)},
             data,
             function (err, result) {
-                cb(err, result)
+                cb(err, result);
             }
         );
     }
@@ -61,7 +61,7 @@ class TranslationsService {
         db.get().collection('translations').remove(
             { _id: ObjectID(id)},
             function (err, result) {
-                cb(err, result)
+                cb(err, result);
             }
         );
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from './Button';
-import LanguageArea from "./LanguageArea";
+import LanguageArea from './LanguageArea';
 
 class Translation extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ class Translation extends React.Component {
     }
 
     makeTranslationParams(values) {
-        const translations =  Object.keys(values).reduce((acc, key) => {
+        const translations = Object.keys(values).reduce((acc, key) => {
             acc.push({
                 language: key,
                 text: values[key]
@@ -82,11 +82,11 @@ class Translation extends React.Component {
         this.translations = this.makeTranslationParams(this.props.values);
         return (
             <form className="translation-edit-form" onSubmit={this.handleSubmit}>
-                <input type="text"
-                       value={this.state.title}
-                       placeholder="Текст ключ"
-                       onChange={this.handleInputChange}
-
+                <input
+                    type="text"
+                    value={this.state.title}
+                    placeholder="Текст ключ"
+                    onChange={this.handleInputChange}
                 />
                 {this.translations.map(translation =>
                     <LanguageArea
@@ -112,7 +112,7 @@ class Translation extends React.Component {
                 {this.renderDisplay()}
                 {this.props.values ? this.renderForm() : ''}
             </div>
-        )
+        );
     }
 }
 
@@ -125,6 +125,5 @@ Translation.propTypes = {
     onHide: React.PropTypes.func.isRequired,
     onDelete: React.PropTypes.func.isRequired
 };
-
 
 export default Translation;

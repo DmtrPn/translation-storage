@@ -6,7 +6,7 @@ class TranslationsController {
     actionGetTranslations(req, res) {
         translationService.getTranslations(function(err, docs) {
             if(err) {
-                console.log(err);
+                console.warn(err);
                 return res.sendStatus(500);
             }
 
@@ -14,8 +14,6 @@ class TranslationsController {
                 translations: docs,
                 count: docs.length
             };
-
-            console.log(data);
 
             res.send(data);
         });
@@ -26,10 +24,9 @@ class TranslationsController {
             req.params.id,
             function(err, docs) {
                 if(err) {
-                    console.log(err);
+                    console.warn(err);
                     return res.sendStatus(404);
                 }
-                console.log('get by id: ', docs);
                 res.send(docs);
             }
         );
@@ -42,10 +39,10 @@ class TranslationsController {
             newData,
             function(err, result) {
                 if(err) {
-                    console.log(err);
+                    console.warn(err);
                     return res.sendStatus(404);
                 }
-                console.log('Change translation: ', newData);
+
                 res.send(newData);
             }
         );
@@ -56,10 +53,10 @@ class TranslationsController {
             req.body,
             function(err, result, newTranslation) {
                 if(err) {
-                    console.log(err);
+                    console.warn(err);
                     return res.sendStatus(500);
                 }
-                console.log('creeate result: ', newTranslation);
+
                 res.send(newTranslation);
             }
         );
@@ -70,7 +67,7 @@ class TranslationsController {
             req.params.id,
             function (err, result) {
                 if(err) {
-                    console.log(err);
+                    console.warn(err);
                     return res.sendStatus(500);
                 }
 
@@ -84,10 +81,10 @@ class TranslationsController {
             req.params.text,
             function(err, docs) {
                 if(err) {
-                    console.log(err);
+                    console.warn(err);
                     return res.sendStatus(404);
                 }
-                console.log('search result: ', docs);
+
                 res.send(docs);
             }
         );

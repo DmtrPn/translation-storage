@@ -23,7 +23,7 @@ export default class ServerApi {
     }
 
     static createTranslation(key) {
-        return axios.post(`/api/translations/`, {key});
+        return axios.post('/api/translations/', {key});
     }
 
     static deleteTranslation(id) {

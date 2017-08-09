@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Header from "./components/Header";
-import Translation from "./components/Translation";
+import Header from './components/Header';
+import Translation from './components/Translation';
 import Form from './components/Form';
 
 import ServerApi from './api';
-import SearchBar from "./components/SearchBar";
+import SearchBar from './components/SearchBar';
 
 class App extends React.Component {
     constructor(props) {
@@ -29,10 +29,11 @@ class App extends React.Component {
         ServerApi.getTranslationsList()
             .then(data =>
                 this.setState({
-                translations: data.translations,
-                count: data.count
-            }))
-            .catch(this.handleError)
+                    translations: data.translations,
+                    count: data.count
+                })
+            )
+            .catch(this.handleError);
     }
 
     handleSearch(value) {
@@ -40,17 +41,16 @@ class App extends React.Component {
             ServerApi.searchTranslations(value) :
             ServerApi.getTranslationsList();
         result.then(data => {
-                console.log(data);
-                value != '' ?
-                    this.setState({
-                        translations: data
-                    }) :
-                    this.setState({
-                        translations: data.translations,
-                        count: data.count
-                    });
-            })
-            .catch(this.handleError)
+            value != '' ?
+                this.setState({
+                    translations: data
+                }) :
+                this.setState({
+                    translations: data.translations,
+                    count: data.count
+                });
+        })
+            .catch(this.handleError);
 
     }
 
@@ -59,26 +59,26 @@ class App extends React.Component {
             .then(response => {
                 const translations = this.state.translations.map(translation => {
                     if (translation._id === id) {
-                        translation.values = response.data.values
+                        translation.values = response.data.values;
                     }
                     return translation;
                 });
 
-                this.setState({translations: translations})
+                this.setState({translations: translations});
             })
-            .catch(this.handleError)
+            .catch(this.handleError);
 
     }
 
     handleHide(id) {
         const translations = this.state.translations.map(translation => {
             if (translation._id === id) {
-                translation.values = null
+                translation.values = null;
             }
             return translation;
         });
 
-        this.setState({translations: translations})
+        this.setState({translations: translations});
     }
 
     handleSubmitChange(id, key, values) {
@@ -96,9 +96,9 @@ class App extends React.Component {
                     return translation;
                 });
 
-                this.setState({translations: translations})
+                this.setState({translations: translations});
             })
-            .catch(this.handleError)
+            .catch(this.handleError);
     }
 
     handleDelete(id) {
@@ -111,7 +111,7 @@ class App extends React.Component {
                     this.setState({
                         translations: translations,
                         count: newCount
-                    })
+                    });
                 }
             });
     }
@@ -124,7 +124,7 @@ class App extends React.Component {
                 this.setState({
                     count: newCount
                 });
-                window.scrollTo(0,0);
+                window.scrollTo(0, 0);
             })
             .catch(this.handleError);
     }
@@ -153,7 +153,7 @@ class App extends React.Component {
                             onChange={this.handleSubmitChange}
                         />)
                     }
-                    </section>
+                </section>
 
                 <Form onAdd={this.handleAdd} />
             </main>

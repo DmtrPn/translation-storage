@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from "./Button";
+import Button from './Button';
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -21,11 +21,11 @@ class SearchBar extends React.Component {
     render() {
         return (
             <div className="search-bar">
-                <input type="text"
-                       value={this.state.title}
-                       placeholder="Введите текст для поиска"
-                       onChange={this.handleChange}
-
+                <input
+                    type="text"
+                    value={this.state.title}
+                    placeholder="Введите текст для поиска"
+                    onChange={this.handleChange}
                 />
                 <Button
                     className="search"
