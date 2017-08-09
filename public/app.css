@@ -44,37 +44,13 @@ button:hover {
     background-color: rgba(158,158,158,.2);
 }
 
+.delete:hover {
+    color: #000000;
+    background-color: rgba(255, 0, 0, 0.44);
+}
+
 button:active {
     background-color: rgba(158,158,158,.4);
-}
-
-button.icon {
-    overflow: hidden;
-
-    width: 32px;
-    min-width: 32px;
-    height: 32px;
-    margin-right: 0;
-    margin-left: 0;
-    padding: 0;
-
-    border-radius: 50%;
-
-    font-size: 24px;
-    line-height: normal;
-}
-
-button .material-icons {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-    width: 24px;
-
-    transform: translate(-12px,-12px);
-    vertical-align: middle;
-
-    line-height: 24px;
 }
 
 input {
@@ -143,25 +119,6 @@ header h1 {
     text-align: left;
 }
 
-
-
-/* Stopwatch */
-.stopwatch {
-    padding: 15px 10px 5px 10px;
-}
-
-.stopwatch-time {
-    font-family: monospace;
-    font-size: 2em;
-}
-
-.stopwatch-controls button {
-    margin: 5px;
-
-    color: white;
-}
-
-
 /* Translation */
 .translation {
     display: flex;
@@ -223,9 +180,7 @@ header h1 {
     margin-left: .5em;
 }
 
-/* Todo form */
-
-.translation-form {
+.search-bar {
     display: flex;
 
     padding: 10px;
@@ -234,7 +189,7 @@ header h1 {
     background-color: #fafafa;
 }
 
-.translation-form input {
+.search-bar input {
     flex: 1;
 
     transition: all .2s;
@@ -242,11 +197,42 @@ header h1 {
     outline: none;
 }
 
-.translation-form input:focus {
+.search-bar input:focus {
     border: 1px solid #00d8ff;
 }
 
-.translation-form button {
+.search-bar button {
+    margin-left: 10px;
+}
+
+
+
+
+
+
+
+.add-form {
+    display: flex;
+
+    padding: 10px;
+
+    border-top: 1px solid rgba(0,0,0,.1);
+    background-color: #fafafa;
+}
+
+.add-form input {
+    flex: 1;
+
+    transition: all .2s;
+
+    outline: none;
+}
+
+.add-form input:focus {
+    border: 1px solid #00d8ff;
+}
+
+.add-form button {
     margin-left: 10px;
 }
 

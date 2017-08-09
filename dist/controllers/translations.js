@@ -19,13 +19,28 @@ class TranslationsController {
     }
 
     actionGetTranslationsById(req, res) {
-        const date = translationService.getTranslationsById(req.params.id);
-        res.send(date);
+        const data = translationService.getTranslationsById(req.params.id);
+        res.send(data);
     }
 
     actionChangeTranslation(req, res) {
         const data = translationService.changeTranslation(req.params.id, req.body);
         !data ? res.sendStatus(404) : res.json(data);
+    }
+
+    actionCreateTranslation(req, res) {
+        const data = translationService.createTranslation(req.body);
+        res.send(data);
+    }
+
+    actionDeleteTranslation(req, res) {
+        const data = translationService.deleteTranslation(req.params.id);
+        res.send(data);
+    }
+
+    actionSearchTranslations(req, res) {
+        const data = translationService.searchTranslations(req.params.text);
+        res.send(data);
     }
 }
 

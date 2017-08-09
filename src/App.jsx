@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import axios from 'axios';
-
 import Header from "./components/Header";
 import Translation from "./components/Translation";
+import Form from './components/Form';
+
+import ServerApi from './api';
+import SearchBar from "./components/SearchBar";
 
 class App extends React.Component {
     constructor(props) {
@@ -15,15 +17,16 @@ class App extends React.Component {
             count: 0
         };
 
-        // this.handleStatusChange = this.handleStatusChange.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleSubmitChange = this.handleSubmitChange.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
+        this.handleHide = this.handleHide.bind(this);
     }
 
     componentDidMount() {
-        axios.get('/api/translations')
-            .then(response => response.data)
+        ServerApi.getTranslationsList()
             .then(data =>
                 this.setState({
                 translations: data.translations,
@@ -32,11 +35,24 @@ class App extends React.Component {
             .catch(this.handleError)
     }
 
+    handleSearch(value) {
+        ServerApi.searchTranslations(value)
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    translations: data.translations
+                })
+            })
+            .catch(this.handleError)
+
+
+    }
+
     handleEdit(id) {
-        axios.get(`/api/translations/${id}`)
+        ServerApi.getTranslationsById(id)
             .then(response => {
                 const translations = this.state.translations.map(translation => {
-                    if(translation.id === id) {
+                    if (translation.id === id) {
                         translation.values = response.data.values
                     }
                     return translation;
@@ -48,12 +64,28 @@ class App extends React.Component {
 
     }
 
-    handleSubmitChange(id, values) {
-        axios.put(`/api/translations/${id}`, {values})
+    handleHide(id) {
+        const translations = this.state.translations.map(translation => {
+            if (translation.id === id) {
+                translation.values = null
+            }
+            return translation;
+        });
+
+        this.setState({translations: translations})
+    }
+
+    handleSubmitChange(id, key, values) {
+        const newParams = {
+            key: key,
+            values: values
+        };
+        ServerApi.changeTranslation(id, newParams)
             .then(response => {
                 const translations = this.state.translations.map(translation => {
                     if(translation.id === id) {
-                        translation.values = response.data.values
+                        translation.values = null; //response.data.values;
+                        translation.key = response.data.key;
                     }
                     return translation;
                 });
@@ -64,7 +96,31 @@ class App extends React.Component {
     }
 
     handleDelete(id) {
-        console.log('Delete click on id: ', id);
+        ServerApi.deleteTranslation(id)
+            .then(response => {
+                if(response.data) {
+                    const translations = this.state.translations.filter(
+                        translation => translation.id !== id);
+                    const newCount = this.state.count - 1;
+                    this.setState({
+                        translations: translations,
+                        count: newCount
+                    })
+                }
+            });
+    }
+
+    handleAdd(title) {
+        ServerApi.createTranslation(title)
+            .then(response => {
+                this.state.translations.unshift(response.data);
+                const newCount = this.state.count + 1;
+                this.setState({
+                    count: newCount
+                });
+                window.scrollTo(0,0);
+            })
+            .catch(this.handleError);
     }
 
     handleError(error) {
@@ -72,11 +128,12 @@ class App extends React.Component {
     }
 
     render() {
-        const count = this.state.count;
         return (
             <main>
-                <Header title="Translations data" count={count}/>
-
+                <Header title="Translations data" count={this.state.count}/>
+                <section className="todo-list">
+                    <SearchBar onSearch={this.handleSearch}/>
+                </section>
                 <section className="todo-list">
                     {this.state.translations.map(translation =>
                         <Translation
@@ -85,14 +142,14 @@ class App extends React.Component {
                             id={translation.id}
                             values={translation.values}
                             onEdit={this.handleEdit}
-                            // onStatusChange={this.handleStatusChange}
+                            onHide={this.handleHide}
                             onDelete={this.handleDelete}
                             onChange={this.handleSubmitChange}
                         />)
                     }
-                </section>
+                    </section>
 
-                {/*<Form onAdd={this.handleAdd} />*/}
+                <Form onAdd={this.handleAdd} />
             </main>
         );
     }

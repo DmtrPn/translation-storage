@@ -8,10 +8,12 @@ class Translation extends React.Component {
         super(props);
 
         this.state = {
-            trnaslations: this.props.values
+            translations: this.props.values,
+            title: this.props.title
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -25,7 +27,7 @@ class Translation extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.onChange(this.props.id, this.state.translations);
+        this.props.onChange(this.props.id, this.state.title, this.state.translations);
     }
 
     makeTranslationParams(values) {
@@ -40,21 +42,37 @@ class Translation extends React.Component {
         return translations;
     }
 
+    handleInputChange(event) {
+        let title = event.target.value;
+
+        this.setState({title});
+    }
+
     renderDisplay() {
         return (
             <div className="translation">
                 <span className="translation-title">{this.props.title}</span>
-
+                {this.props.values ?
+                    <Button
+                        className="hide"
+                        onClick={() => this.props.onHide(this.props.id)}
+                    >
+                        Свернуть
+                    </Button>
+                    :
+                    <Button
+                        className="edit"
+                        onClick={() => this.props.onEdit(this.props.id)}
+                    >
+                        Раскрыть
+                    </Button>
+                }
                 <Button
-                    className="edit icon"
-                    icon="edit"
-                    onClick={() => this.props.onEdit(this.props.id)}
-                />
-                <Button
-                    className="delete button"
-                    icon="delete"
+                    className="delete"
                     onClick={ () => this.props.onDelete(this.props.id)}
-                />
+                >
+                    Удалить
+                </Button>
             </div>
         );
     }
@@ -64,6 +82,12 @@ class Translation extends React.Component {
         this.translations = this.makeTranslationParams(this.props.values);
         return (
             <form className="translation-edit-form" onSubmit={this.handleSubmit}>
+                <input type="text"
+                       value={this.state.title}
+                       placeholder="Текст ключ"
+                       onChange={this.handleInputChange}
+
+                />
                 {this.translations.map(translation =>
                     <LanguageArea
                         key={translation.language}
@@ -73,10 +97,11 @@ class Translation extends React.Component {
                     />)
                 }
                 <Button
-                    className="save icon"
-                    icon="save"
+                    className="save"
                     type="submit"
-                />
+                >
+                    Сохранить
+                </Button>
             </form>
         );
     }
@@ -96,7 +121,9 @@ Translation.propTypes = {
     title: React.PropTypes.string.isRequired,
     values: React.PropTypes.object,
     onEdit: React.PropTypes.func.isRequired,
-    onChange: React.PropTypes.func.isRequired
+    onChange: React.PropTypes.func.isRequired,
+    onHide: React.PropTypes.func.isRequired,
+    onDelete: React.PropTypes.func.isRequired
 };
 
 
