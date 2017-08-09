@@ -117,7 +117,7 @@ class Translation extends React.Component {
 }
 
 Translation.propTypes = {
-    id: React.PropTypes.number.isRequired,
+    id: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
     values: React.PropTypes.object,
     onEdit: React.PropTypes.func.isRequired,

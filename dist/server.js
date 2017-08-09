@@ -1,10 +1,12 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const routes = require('./routes/routes');
+const db = require('../db/db');
+
+const DBConfig = require('../config/database-config');
 
 const app = express();
 
@@ -31,4 +33,11 @@ app.get('*', (req, res) => {
     });
 });
 
-app.listen(app.get('port'), () => console.log(`Server is listening: http://localhost:${app.get('port')}`));
+db.connect(`${DBConfig.path}:${DBConfig.port}/${DBConfig.name}`,
+    function(err) {
+        if (err) {
+            return console.log(err);
+        }
+        app.listen(app.get('port'), () => console.log(`Server is listening: http://localhost:${app.get('port')}`));
+    }
+);

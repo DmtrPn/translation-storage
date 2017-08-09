@@ -36,15 +36,21 @@ class App extends React.Component {
     }
 
     handleSearch(value) {
-        ServerApi.searchTranslations(value)
-            .then(data => {
+        const result = value != '' ?
+            ServerApi.searchTranslations(value) :
+            ServerApi.getTranslationsList();
+        result.then(data => {
                 console.log(data);
-                this.setState({
-                    translations: data.translations
-                })
+                value != '' ?
+                    this.setState({
+                        translations: data
+                    }) :
+                    this.setState({
+                        translations: data.translations,
+                        count: data.count
+                    });
             })
             .catch(this.handleError)
-
 
     }
 
@@ -52,7 +58,7 @@ class App extends React.Component {
         ServerApi.getTranslationsById(id)
             .then(response => {
                 const translations = this.state.translations.map(translation => {
-                    if (translation.id === id) {
+                    if (translation._id === id) {
                         translation.values = response.data.values
                     }
                     return translation;
@@ -66,7 +72,7 @@ class App extends React.Component {
 
     handleHide(id) {
         const translations = this.state.translations.map(translation => {
-            if (translation.id === id) {
+            if (translation._id === id) {
                 translation.values = null
             }
             return translation;
@@ -83,7 +89,7 @@ class App extends React.Component {
         ServerApi.changeTranslation(id, newParams)
             .then(response => {
                 const translations = this.state.translations.map(translation => {
-                    if(translation.id === id) {
+                    if(translation._id === id) {
                         translation.values = null; //response.data.values;
                         translation.key = response.data.key;
                     }
@@ -100,7 +106,7 @@ class App extends React.Component {
             .then(response => {
                 if(response.data) {
                     const translations = this.state.translations.filter(
-                        translation => translation.id !== id);
+                        translation => translation._id !== id);
                     const newCount = this.state.count - 1;
                     this.setState({
                         translations: translations,
@@ -137,9 +143,9 @@ class App extends React.Component {
                 <section className="todo-list">
                     {this.state.translations.map(translation =>
                         <Translation
-                            key={translation.key}
+                            key={translation._id}
                             title={translation.key}
-                            id={translation.id}
+                            id={translation._id}
                             values={translation.values}
                             onEdit={this.handleEdit}
                             onHide={this.handleHide}
