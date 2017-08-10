@@ -1,53 +1,34 @@
-const fs = require('fs');
-const path = require('path');
-const _ = require('lodash');
-
-const DATA_PATH = path.join(__dirname, '../../data/translations.json');
-
-const fileData = fs.readFileSync(DATA_PATH, 'utf8');
-let translationsData = JSON.parse(fileData);
-let translationsCount = translationsData.length;
-let timeStart = new Date();
+const db = require('../../db/db');
+const ObjectID = require('mongodb').ObjectID;
 
 class TranslationsService {
-    getTranslations() {
-        const data = {};
-        data.translations = _.reduce(translationsData, function(acc, element) {
-            acc.push({
-                id: element.id,
-                key: element.key
-            });
-            return acc;
-        }, []);
-        data.count = translationsCount;
-        return data;
-    }
 
-    getTranslationsById(id) {
-        const translation = _.filter(translationsData, function(translation) {
-            return translation.id == id;
-        });
-        return translation[0];
-    }
-
-    searchTranslations(text) {
-        const data = {};
-        data.translations = _.reduce(translationsData, function(acc, translation) {
-            if (translation.key.match(text)) {
-                acc.push({
-                    id: translation.id,
-                    key: translation.key
-                });
+    getTranslations(cb) {
+        db.get().collection('translations').find({}, {values: 0}).toArray(
+            function (err, docs) {
+                cb(err, docs);
             }
-            return acc;
-        }, []);
-
-        return data;
+        );
     }
 
-    createTranslation(data) {
+    getTranslationsById(id, cb) {
+        db.get().collection('translations').findOne({ _id: ObjectID(id)},
+            function (err, docs) {
+                cb(err, docs);
+            });
+    }
+
+    searchTranslations(text, cb) {
+        const searchText = new RegExp(text);
+        db.get().collection('translations').find({key: searchText}, {values: 0}).toArray(
+            function (err, docs) {
+                cb(err, docs);
+            }
+        );
+    }
+
+    createTranslation(data, cb) {
         const newTranslation = {
-            id: new Date() - timeStart,
             key: data.key,
             values: {
                 ru: '',
@@ -59,32 +40,31 @@ class TranslationsService {
             }
         };
 
-        translationsData.unshift(newTranslation);
-
-        fs.writeFileSync(DATA_PATH, JSON.stringify(translationsData), 'utf8');
-        return newTranslation;
+        db.get().collection('translations').insertOne(newTranslation,
+            function (err, result) {
+                cb(err, result, newTranslation);
+            }
+        );
     }
 
-    changeTranslation(id, data) {
-        const translation = _.filter(translationsData, function(translation) {
-            return translation.id == id;
-        });
-        if (!translation) return false;
-        translation[0].values = data.values || translation[0].values;
-        translation[0].key = data.key || translation[0].key;
-        fs.writeFileSync(DATA_PATH, JSON.stringify(translationsData), 'utf8');
-        return translation[0];
+    changeTranslation(id, data, cb) {
+        db.get().collection('translations').updateOne(
+            { _id: ObjectID(id)},
+            data,
+            function (err, result) {
+                cb(err, result);
+            }
+        );
     }
 
-    deleteTranslation(id) {
-        const translation = _.filter(translationsData, function(translation) {
-            return translation.id != id;
-        });
-
-        if (!translation) return false;
-        translationsData = translation;
-        fs.writeFileSync(DATA_PATH, JSON.stringify(translationsData), 'utf8');
-        return true;
+    deleteTranslation(id, cb) {
+        db.get().collection('translations').remove(
+            { _id: ObjectID(id)},
+            function (err, result) {
+                cb(err, result);
+            }
+        );
     }
 }
+
 module.exports = TranslationsService;

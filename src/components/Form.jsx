@@ -33,11 +33,11 @@ class Form extends React.Component {
     render() {
         return (
             <form className="add-form" onSubmit={this.handleSubmit}>
-                <input type="text"
-                       value={this.state.title}
-                       placeholder="Текст ключ"
-                       onChange={this.handleChange}
-
+                <input
+                    type="text"
+                    value={this.state.title}
+                    placeholder="Текст ключ"
+                    onChange={this.handleChange}
                 />
                 <Button type="submit">Добавить</Button>
             </form>

@@ -18,4 +18,4 @@ Stats.propTypes = {
     count: React.PropTypes.number.isRequired
 };
 
-export default Stats
+export default Stats;
