@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server --hot",
     "start-dev": "webpack-dev-server --inline --hot --content-base ./public",
     "server-dev": "node-dev ./dist/server"
   },
