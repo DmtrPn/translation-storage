@@ -77,17 +77,19 @@ class TranslationsController {
     }
 
     actionSearchTranslations(req, res) {
-        translationService.searchTranslations(
-            req.params.text,
-            function(err, docs) {
-                if(err) {
-                    console.warn(err);
-                    return res.sendStatus(404);
-                }
-
-                res.send(docs);
+        const cb = function(err, docs) {
+            if(err) {
+                console.warn(err);
+                return res.sendStatus(404);
             }
-        );
+
+            res.send(docs);
+        };
+        const serviceMethod = req.query.isField ?
+            translationService.searchTranslationsField :
+            translationService.searchTranslations;
+
+        serviceMethod(req.query.text, cb);
     }
 }
 

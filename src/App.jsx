@@ -36,9 +36,9 @@ class App extends React.Component {
             .catch(this.handleError);
     }
 
-    handleSearch(value) {
+    handleSearch(value, isField) {
         const result = value != '' ?
-            ServerApi.searchTranslations(value) :
+            ServerApi.searchTranslations(value, isField) :
             ServerApi.getTranslationsList();
         result.then(data => {
             value != '' ?
@@ -138,7 +138,9 @@ class App extends React.Component {
             <main>
                 <Header title="Translations data" count={this.state.count}/>
                 <section className="todo-list">
-                    <SearchBar onSearch={this.handleSearch}/>
+                    <SearchBar
+                        onSearch={this.handleSearch}
+                    />
                 </section>
                 <section className="todo-list">
                     {this.state.translations.map(translation =>

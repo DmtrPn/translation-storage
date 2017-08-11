@@ -82,6 +82,7 @@ class Translation extends React.Component {
         this.translations = this.makeTranslationParams(this.props.values);
         return (
             <form className="translation-edit-form" onSubmit={this.handleSubmit}>
+                <h3>Ключ</h3>
                 <input
                     type="text"
                     value={this.state.title}
