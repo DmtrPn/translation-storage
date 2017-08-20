@@ -1,5 +1,13 @@
 import React from 'react';
 
+const languageName = {
+    ru: 'Русский',
+    en: 'Английский',
+    zn: 'Китайский',
+    hi: 'Хинди',
+    sp: 'Испанский',
+    pt: 'Португальский'
+};
 class LanguageArea extends React.Component {
     constructor(props) {
         super(props);
@@ -18,9 +26,10 @@ class LanguageArea extends React.Component {
     }
 
     render() {
+        const titleText = languageName[this.props.language];
         return (
             <div className="language-area">
-                <h3>{this.props.language}</h3>
+                <h4>{titleText}</h4>
                 <textarea
                     className="textarea"
                     value={this.state.value}

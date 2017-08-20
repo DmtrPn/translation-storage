@@ -31,7 +31,13 @@ class SearchBar extends React.Component {
                     className="search"
                     onClick={() => this.props.onSearch(this.state.title)}
                 >
-                    Найти
+                    Поиск по ключу
+                </Button>
+                <Button
+                    className="search"
+                    onClick={() => this.props.onSearch(this.state.title, true)}
+                >
+                    Поиск по тексту
                 </Button>
             </div>
         );

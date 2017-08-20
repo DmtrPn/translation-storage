@@ -19,8 +19,39 @@ class TranslationsService {
     }
 
     searchTranslations(text, cb) {
-        const searchText = new RegExp(text);
-        db.get().collection('translations').find({key: searchText}, {values: 0}).toArray(
+        db.get().collection('translations').find({key: {$regex:text}}, {values: 0}).toArray(
+            function (err, docs) {
+                cb(err, docs);
+            }
+        );
+    }
+
+    searchTranslationsField(text, cb) {
+        db.get().collection('translations').find(
+            {
+                $or: [
+                    {
+                        'values.ru': {$regex:text}
+                    },
+                    {
+                        'values.en': {$regex:text}
+                    },
+                    {
+                        'values.zn': {$regex:text}
+                    },
+                    {
+                        'values.hi': {$regex:text}
+                    },
+                    {
+                        'values.sp': {$regex:text}
+                    },
+                    {
+                        'values.pt': {$regex:text}
+                    }
+                ]
+
+            },
+            {values: 0}).toArray(
             function (err, docs) {
                 cb(err, docs);
             }

@@ -10,8 +10,9 @@ export default class ServerApi {
         return axios.get(`/api/translations/${id}`);
     }
 
-    static searchTranslations(text) {
-        return axios.get(`/api/translations/search/${text}`)
+    static searchTranslations(text, isField) {
+        const requestUrl = `/api/translations/search?text=${text}` + (isField ? `&isField=${isField}` : '');
+        return axios.get(requestUrl)
             .then(response => response.data);
     }
 
