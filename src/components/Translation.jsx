@@ -111,7 +111,7 @@ class Translation extends React.Component {
         return (
             <div className="translations">
                 {this.renderDisplay()}
-                {this.props.values ? this.renderForm() : ''}
+                {this.props.values && this.renderForm()}
             </div>
         );
     }
