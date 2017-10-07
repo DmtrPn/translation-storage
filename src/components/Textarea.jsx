@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Textarea(props) {
     return (
@@ -10,7 +11,7 @@ function Textarea(props) {
 }
 
 Textarea.propTypes = {
-    text: React.PropTypes.string
+    text: PropTypes.string
 };
 
 Textarea.defaultProps = {

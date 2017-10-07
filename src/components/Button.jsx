@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Button(props) {
     return (
@@ -8,9 +9,9 @@ function Button(props) {
     );
 }
 Button.propTypes = {
-    className: React.PropTypes.string,
-    onClick: React.PropTypes.func,
-    children: React.PropTypes.node
+    className: PropTypes.string,
+    onClick: PropTypes.func,
+    children: PropTypes.node
 };
 
 export default Button;

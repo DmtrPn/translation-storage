@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Stats from './Stats';
 
@@ -12,8 +13,8 @@ function Header(props) {
 }
 
 Header.prototype = {
-    title: React.PropTypes.string.isRequired,
-    count: React.PropTypes.number.isRequired
+    title: PropTypes.string.isRequired,
+    count: PropTypes.number.isRequired
 };
 
 export default Header;
