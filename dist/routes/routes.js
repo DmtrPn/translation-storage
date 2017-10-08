@@ -13,3 +13,4 @@ routes.put('/api/translations/:id', translationController.actionChangeTranslatio
 routes.delete('/api/translations/:id', translationController.actionDeleteTranslation);
 
 module.exports = routes;
+

@@ -24,7 +24,9 @@
     "lodash": "^4.17.4",
     "mongodb": "^2.2.31",
     "react": "15.4.2",
-    "react-dom": "15.4.2"
+    "react-dom": "15.4.2",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
