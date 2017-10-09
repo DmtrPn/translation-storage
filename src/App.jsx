@@ -8,6 +8,8 @@ import Form from './components/Form';
 import ServerApi from './api';
 import SearchBar from './components/SearchBar';
 
+// import TranslationContainer from './containers/TranslationContainer';
+
 class App extends React.Component {
     constructor(props) {
         super(props);

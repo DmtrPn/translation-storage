@@ -1,19 +1,39 @@
 import ServerApi from '../../api';
 
-export const REQUEST_TRANSLATIONS = 'REQUEST_TRANSLATIONS';
 export const GET_TRANSLATIONS = 'GET_TRANSLATIONS';
-
 export const getTranslations = () => {
     return dispatch => {
-        dispatch({
-            type: REQUEST_TRANSLATIONS
-        });
-
         return ServerApi.getTranslationsList()
-            .then(data => dispatch({
+            .then(data => {
+                return dispatch({
                 type: GET_TRANSLATIONS,
                 data
                 })
+            }
+            );
+    }
+};
+
+export const GET_DETAIL = 'GET_DETAIL';
+
+export const getTranslationDetail = (id) => {
+    return dispatch => {
+        return ServerApi.getTranslationsById(id)
+            .then(response => {
+                    return dispatch({
+                        type: GET_DETAIL,
+                        id,
+                        values: response.data.values
+                });
+                // const translations = this.state.translations.map(translation => {
+                //     if (translation._id === id) {
+                //         translation.values = response.data.values;
+                //     }
+                //     return translation;
+                // });
+                    // console.log(data);
+
+                }
             );
     }
 };

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import translation from './translation';
+import translations from './translation';
 
-const reducer = combineReducers({
-    translation
-});
+// const reducer = combineReducers({
+//     translations
+// });
 
-export default reducer;
+export default translations;
