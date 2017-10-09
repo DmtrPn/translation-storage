@@ -2,22 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-// import store from './redux/store';
-import App from './App';
 import AppNew from './AppNew';
 import { getTranslations } from './redux/actions';
-//
-// store.dispatch(getTranslations());
-// console.log(store.getState());
-import { createStore, applyMiddleware } from 'redux';
+
+import { createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './redux/reducers';
 
 // Note: this API requires redux@>=3.1.0
-const store = createStore(
-    rootReducer,
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
     applyMiddleware(thunk)
-);
+));
 
 store.dispatch(getTranslations()).then(()=> {
     ReactDOM.render(
