@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from './Button';
 import LanguageArea from './LanguageArea';
@@ -111,20 +112,20 @@ class Translation extends React.Component {
         return (
             <div className="translations">
                 {this.renderDisplay()}
-                {this.props.values ? this.renderForm() : ''}
+                {this.props.values && this.renderForm()}
             </div>
         );
     }
 }
 
 Translation.propTypes = {
-    id: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired,
-    values: React.PropTypes.object,
-    onEdit: React.PropTypes.func.isRequired,
-    onChange: React.PropTypes.func.isRequired,
-    onHide: React.PropTypes.func.isRequired,
-    onDelete: React.PropTypes.func.isRequired
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    values: PropTypes.object,
+    onEdit: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onHide: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
 };
 
 export default Translation;

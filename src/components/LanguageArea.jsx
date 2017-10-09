@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const languageName = {
     ru: 'Русский',
@@ -41,8 +42,8 @@ class LanguageArea extends React.Component {
 }
 
 LanguageArea.propTypes = {
-    language: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string
+    language: PropTypes.string.isRequired,
+    text: PropTypes.string
 };
 
 export default LanguageArea;

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 function Stats(props) {
     return (
@@ -15,7 +17,7 @@ function Stats(props) {
 }
 
 Stats.propTypes = {
-    count: React.PropTypes.number.isRequired
+    count: PropTypes.number.isRequired
 };
 
 export default Stats;
