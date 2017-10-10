@@ -59,7 +59,7 @@ class TranslationNew extends React.Component {
                 {this.props.values ?
                     <Button
                         className="hide"
-                        //onClick={() => this.props.onHide(this.props.id)}
+                        onClick={() => this.props.onHide(this.props.id)}
                     >
                         Свернуть
                     </Button>
@@ -73,7 +73,7 @@ class TranslationNew extends React.Component {
                 }
                 <Button
                     className="delete"
-                   // onClick={ () => this.props.onDelete(this.props.id)}
+                    onClick={() => this.props.onDelete(this.props.id)}
                 >
                     Удалить
                 </Button>
@@ -120,86 +120,5 @@ class TranslationNew extends React.Component {
         );
     }
 }
-//{this.props.values ? this.renderForm() : ''}
-// function makeTranslationParams(values) {
-//     const translations = Object.keys(values).reduce((acc, key) => {
-//         acc.push({
-//             language: key,
-//             text: values[key]
-//         });
-//         return acc;
-//     }, []);
-//     this.state.translations = values;
-//     return translations;
-// }
-//
-// function Translation(props) {
-//     function renderDisplay(props) {
-//         return (
-//             <div className="translation">
-//                 <span className="translation-title">{props.title}</span>
-//                 {props.values ?
-//                     <Button
-//                         className="hide"
-//                         //onClick={() => 'as'{} //this.props.onHide(this.props.id)}
-//                     >
-//                         Свернуть
-//                     </Button>
-//                     :
-//                     <Button
-//                         className="edit"
-//                         onClick={() => props.onEdit(props.id)}
-//                     >
-//                         Раскрыть
-//                     </Button>
-//                 }
-//                 <Button
-//                     className="delete"
-//                     //onClick={ () => {} //this.props.onDelete(this.props.id)}
-//                 >
-//                     Удалить
-//                 </Button>
-//             </div>
-//         );
-//     }
-//
-//
-//     function renderForm(props) {
-//         this.translations = makeTranslationParams(props.values);
-//         return (
-//             <form className="translation-edit-form" onSubmit={'handleSubmit'}>
-//                 <h3>Ключ</h3>
-//                 <input
-//                     type="text"
-//                     value={props.title}
-//                     placeholder="Текст ключ"
-//                     //       onChange={this.handleInputChange}
-//                 />
-//                 {this.translations.map(translation =>
-//                     <LanguageArea
-//                         key={translation.language}
-//                         language={translation.language}
-//                         text={translation.text}
-//                         onChange={this.handleChange}
-//                     />)
-//                 }
-//                 <Button
-//                     className="save"
-//                     type="submit"
-//                 >
-//                     Сохранить
-//                 </Button>
-//             </form>
-//         );
-//     }
-//     return (
-//         <div className="translations">
-//             {renderDisplay(props)}
-//             {props.values ? renderForm(props) : ''}
-//         </div>
-//     );
-//
-//
-// }
 
 export default TranslationNew;

@@ -84,11 +84,7 @@ class App extends React.Component {
     }
 
     handleSubmitChange(id, key, values) {
-        const newParams = {
-            key: key,
-            values: values
-        };
-        ServerApi.changeTranslation(id, newParams)
+        ServerApi.changeTranslation(id, key, values)
             .then(response => {
                 const translations = this.state.translations.map(translation => {
                     if(translation._id === id) {

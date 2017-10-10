@@ -15,7 +15,7 @@ class TranslationsController {
                 count: docs.length
             };
 
-            res.send(data);
+            res.send(docs);
         });
     }
 

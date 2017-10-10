@@ -15,7 +15,7 @@ const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
     applyMiddleware(thunk)
 ));
 
-store.dispatch(getTranslations()).then(()=> {
+store.dispatch(getTranslations()).then(() => {
     ReactDOM.render(
         <Provider store={store}>
             <AppNew />

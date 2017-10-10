@@ -3,7 +3,6 @@ import React from 'react';
 import TranslationNew from './TranslationNew';
 
 function List(props) {
-    console.log('LIST PROPS:', props);
     return (
         <section className="todo-list">
             {props.translations.map(translation =>
@@ -13,11 +12,11 @@ function List(props) {
                     id={translation._id}
                     values={translation.values}
                     onEdit={props.onEdit}
-                    // onHide={this.handleHide}
-                    // onDelete={this.handleDelete}
-                    // onChange={this.handleSubmitChange}
-                />)
-            }
+                    onHide={props.onHide}
+                    onDelete={props.onDelete}
+                    onChange={props.onChange}
+                />
+            )}
         </section>
     );
 }

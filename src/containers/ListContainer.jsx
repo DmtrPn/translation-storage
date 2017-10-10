@@ -1,10 +1,14 @@
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import List from '../components/List';
-import {getTranslationDetail} from '../redux/actions';
+import {
+    getTranslationDetail,
+    hideTranslationDetail,
+    changeTranslationDetail,
+    deleteTranslation} from '../redux/actions';
 
 function mapStateToProps(state) {
-    console.log('list contain', state);
     return {
         translations: state.translations
     };
@@ -12,7 +16,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onEdit: id => dispatch(getTranslationDetail(id))
+        onEdit: bindActionCreators(id => getTranslationDetail(id), dispatch),
+        onHide: bindActionCreators(id => hideTranslationDetail(id), dispatch),
+        onChange: (id, key, values) => dispatch(changeTranslationDetail(id, key, values)),
+        onDelete: (id) => dispatch(deleteTranslation(id))
     };
 }
 

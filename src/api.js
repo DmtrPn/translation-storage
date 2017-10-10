@@ -16,10 +16,10 @@ export default class ServerApi {
             .then(response => response.data);
     }
 
-    static changeTranslation(id, newParams) {
+    static changeTranslation(id, key, values) {
         return axios.put(`/api/translations/${id}`, {
-            key: newParams.key,
-            values: newParams.values
+            key,
+            values
         });
     }
 

@@ -49,7 +49,6 @@ module.exports = {
         "no-use-before-define": [1,"nofunc"],
         "array-bracket-spacing": 1,
         "comma-spacing": [1,{"before":false,"after":true}],
-        "eol-last": 1,
         "arrow-spacing": [1,{"before":true,"after":true}],
         "constructor-super": 1,
         "no-const-assign": 2,
