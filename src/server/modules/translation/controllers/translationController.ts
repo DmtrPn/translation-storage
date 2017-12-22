@@ -1,92 +1,45 @@
 import { TranslationService } from '../services/translationService';
 
 export class TranslationController {
-    actionGetTranslations(req, res) {
-        TranslationService.getTranslations(function(err, docs) {
-            if(err) {
-                console.warn(err);
-                return res.sendStatus(500);
-            }
+    async actionGetTranslations(req, res) {
+        return await TranslationService.getTranslations();
 
-            // const data = {
-            //     translations: docs,
-            //     count: docs.length
-            // };
-
-            res.send(docs);
-        });
+        // res.send(translations);
     }
 
-    actionGetTranslationsById(req, res) {
-        TranslationService.getTranslationsById(
-            req.params.id,
-            function(err, docs) {
-                if(err) {
-                    console.warn(err);
-                    return res.sendStatus(404);
-                }
-                res.send(docs);
-            }
-        );
+    async actionGetTranslationsById(req, res) {
+        return await TranslationService.getTranslationsById(req.params.id);
+        // res.send(translation);
     }
 
-    actionChangeTranslation(req, res) {
+    async actionChangeTranslation(req, res) {
         const newData = req.body;
-        TranslationService.changeTranslation(
+        await TranslationService.changeTranslation(
             req.params.id,
-            newData,
-            function(err, result) {
-                if(err) {
-                    console.warn(err);
-                    return res.sendStatus(404);
-                }
-
-                res.send(newData);
-            }
+            newData
         );
+
+        return newData;
+        // res.send(newData);
     }
 
-    actionCreateTranslation(req, res) {
-        TranslationService.createTranslation(
-            req.body,
-            function(err, result, newTranslation) {
-                if(err) {
-                    console.warn(err);
-                    return res.sendStatus(500);
-                }
-
-                res.send(newTranslation);
-            }
-        );
+    async actionCreateTranslation(req, res) {
+        return await TranslationService.createTranslation(req.body);
+        // res.send(newTranslation);
     }
 
-    actionDeleteTranslation(req, res) {
-        TranslationService.deleteTranslation(
-            req.params.id,
-            function (err, result) {
-                if(err) {
-                    console.warn(err);
-                    return res.sendStatus(500);
-                }
-
-                res.send(result);
-            }
-        );
+    async actionDeleteTranslation(req, res) {
+        return await TranslationService.deleteTranslation(req.params.id);
+        // res.send(result);
     }
 
-    actionSearchTranslations(req, res) {
-        const cb = function(err, docs) {
-            if(err) {
-                console.warn(err);
-                return res.sendStatus(404);
-            }
-
-            res.send(docs);
-        };
+    async actionSearchTranslations(req, res) {
         const serviceMethod = req.query.isField ?
             TranslationService.searchTranslationsField :
             TranslationService.searchTranslations;
 
-        serviceMethod(req.query.text, cb);
+        return await serviceMethod(req.query.text);
+
+        // res.send(result);
     }
 }

@@ -1,37 +1,26 @@
 const ObjectID = require('mongodb').ObjectID;
 
-import {getCollection} from '../../../db/mongodb';
+import { getCollection } from '../../../db/mongodb';
 
 export class TranslationService {
-    static getTranslations(cb) {
-        const db = getCollection('test');
-        db.get().collection('translations').find({}, {values: 0}).toArray(
-            function (err, docs) {
-                cb(err, docs);
-            }
-        );
+    static async getTranslations() {
+        const db = getCollection('translations');
+        return await db.find({}, {values: 0}).toArray();
     }
 
-    static getTranslationsById(id, cb) {
-        const db = getCollection('test');
-        db.get().collection('translations').findOne({ _id: ObjectID(id)},
-            function (err, docs) {
-                cb(err, docs);
-            });
+    static async getTranslationsById(id) {
+        const db = getCollection('translations');
+        return await db.findOne({ _id: ObjectID(id)});
     }
 
-    static searchTranslations(text, cb) {
-        const db = getCollection('test');
-        db.get().collection('translations').find({key: {$regex:text}}, {values: 0}).toArray(
-            function (err, docs) {
-                cb(err, docs);
-            }
-        );
+    static async searchTranslations(text) {
+        const db = getCollection('translations');
+        return await db.find({key: {$regex:text}}, {values: 0}).toArray();
     }
 
-    static searchTranslationsField(text, cb) {
-        const db = getCollection('test');
-        db.get().collection('translations').find(
+    static async searchTranslationsField(text) {
+        const db = getCollection('translations');
+        return await db.find(
             {
                 $or: [
                     {
@@ -55,15 +44,11 @@ export class TranslationService {
                 ]
 
             },
-            {values: 0}).toArray(
-            function (err, docs) {
-                cb(err, docs);
-            }
-        );
+            {values: 0}).toArray();
     }
 
-    static createTranslation(data, cb) {
-        const db = getCollection('test');
+    static async createTranslation(data) {
+        const db = getCollection('translations');
         const newTranslation = {
             key: data.key,
             values: {
@@ -76,32 +61,22 @@ export class TranslationService {
             }
         };
 
-        db.get().collection('translations').insertOne(newTranslation,
-            function (err, result) {
-                cb(err, result, newTranslation);
-            }
-        );
+        return await db.insertOne(newTranslation);
     }
 
-    static changeTranslation(id, data, cb) {
-        const db = getCollection('test');
-        db.get().collection('translations').updateOne(
+    static async changeTranslation(id, data) {
+        const db = getCollection('translations');
+        return await db.updateOne(
             { _id: ObjectID(id)},
-            data,
-            function (err, result) {
-                cb(err, result);
-            }
+            data
         );
     }
 
 
-    static deleteTranslation(id, cb) {
-        const db = getCollection('test');
-        db.get().collection('translations').remove(
-            { _id: ObjectID(id)},
-            function (err, result) {
-                cb(err, result);
-            }
+    static async deleteTranslation(id) {
+        const db = getCollection('translations');
+        return await db.remove(
+            { _id: ObjectID(id)}
         );
     }
 }

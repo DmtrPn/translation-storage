@@ -1,5 +1,5 @@
 import * as express from 'express';
-import {TranslationController} from './controllers/translationController';
+import { TranslationController } from './controllers/translationController';
 
 const translationRouter = express.Router();
 
