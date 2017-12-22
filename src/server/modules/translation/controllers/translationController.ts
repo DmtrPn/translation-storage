@@ -1,26 +1,24 @@
-const TranslationService = require('../services/translationService');
+import { TranslationService } from '../services/translationService';
 
-const translationService = new TranslationService();
-
-class TranslationsController {
+export class TranslationController {
     actionGetTranslations(req, res) {
-        translationService.getTranslations(function(err, docs) {
+        TranslationService.getTranslations(function(err, docs) {
             if(err) {
                 console.warn(err);
                 return res.sendStatus(500);
             }
 
-            const data = {
-                translations: docs,
-                count: docs.length
-            };
+            // const data = {
+            //     translations: docs,
+            //     count: docs.length
+            // };
 
             res.send(docs);
         });
     }
 
     actionGetTranslationsById(req, res) {
-        translationService.getTranslationsById(
+        TranslationService.getTranslationsById(
             req.params.id,
             function(err, docs) {
                 if(err) {
@@ -34,7 +32,7 @@ class TranslationsController {
 
     actionChangeTranslation(req, res) {
         const newData = req.body;
-        translationService.changeTranslation(
+        TranslationService.changeTranslation(
             req.params.id,
             newData,
             function(err, result) {
@@ -49,7 +47,7 @@ class TranslationsController {
     }
 
     actionCreateTranslation(req, res) {
-        translationService.createTranslation(
+        TranslationService.createTranslation(
             req.body,
             function(err, result, newTranslation) {
                 if(err) {
@@ -63,7 +61,7 @@ class TranslationsController {
     }
 
     actionDeleteTranslation(req, res) {
-        translationService.deleteTranslation(
+        TranslationService.deleteTranslation(
             req.params.id,
             function (err, result) {
                 if(err) {
@@ -86,11 +84,9 @@ class TranslationsController {
             res.send(docs);
         };
         const serviceMethod = req.query.isField ?
-            translationService.searchTranslationsField :
-            translationService.searchTranslations;
+            TranslationService.searchTranslationsField :
+            TranslationService.searchTranslations;
 
         serviceMethod(req.query.text, cb);
     }
 }
-
-module.exports = TranslationsController;

@@ -6,7 +6,8 @@ import {
     getTranslationDetail,
     hideTranslationDetail,
     changeTranslationDetail,
-    deleteTranslation} from '../redux/actions';
+    deleteTranslation
+} from '../redux/actions';
 
 function mapStateToProps(state) {
     return {

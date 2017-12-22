@@ -1,0 +1,46 @@
+.button {
+    position: relative;
+
+    display: inline-block;
+    overflow: hidden;
+
+    min-width: 64px;
+    height: 36px;
+    margin: 0;
+    padding: 0 16px;
+
+    cursor: pointer;
+    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    letter-spacing: 0;
+    text-transform: uppercase;
+
+    color: #757575;
+    border: none;
+    border-radius: 2px;
+    outline: none;
+    background: 0 0;
+
+    font-family: 'Roboto','Helvetica','Arial',sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 36px;
+
+    will-change: box-shadow;
+}
+
+.button:hover {
+    background-color: rgba(158,158,158,.2);
+}
+
+.button:active {
+    background-color: rgba(158,158,158,.4);
+}
+
+.delete:hover {
+    @extend .button;
+    color: #000000;
+    background-color: rgba(255, 0, 0, 0.44);
+}

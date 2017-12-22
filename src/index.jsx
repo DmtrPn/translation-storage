@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose} from 'redux';
+import thunk from 'redux-thunk';
+
 
 import AppNew from './AppNew';
 import { getTranslations } from './redux/actions';
-
-import { createStore, applyMiddleware, compose} from 'redux';
-import thunk from 'redux-thunk';
 import rootReducer from './redux/reducers';
 
 // Note: this API requires redux@>=3.1.0

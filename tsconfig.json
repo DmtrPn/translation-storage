@@ -1,0 +1,22 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowJs": true,
+    "experimentalDecorators" :true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": ["es6", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "rootDir": "./src/server",
+    "sourceMap": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "ES6"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

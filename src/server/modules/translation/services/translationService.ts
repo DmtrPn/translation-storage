@@ -1,9 +1,10 @@
-const db = require('../../db/db');
 const ObjectID = require('mongodb').ObjectID;
 
-class TranslationsService {
+import {getCollection} from '../../../db/mongodb';
 
-    getTranslations(cb) {
+export class TranslationService {
+    static getTranslations(cb) {
+        const db = getCollection('test');
         db.get().collection('translations').find({}, {values: 0}).toArray(
             function (err, docs) {
                 cb(err, docs);
@@ -11,14 +12,16 @@ class TranslationsService {
         );
     }
 
-    getTranslationsById(id, cb) {
+    static getTranslationsById(id, cb) {
+        const db = getCollection('test');
         db.get().collection('translations').findOne({ _id: ObjectID(id)},
             function (err, docs) {
                 cb(err, docs);
             });
     }
 
-    searchTranslations(text, cb) {
+    static searchTranslations(text, cb) {
+        const db = getCollection('test');
         db.get().collection('translations').find({key: {$regex:text}}, {values: 0}).toArray(
             function (err, docs) {
                 cb(err, docs);
@@ -26,7 +29,8 @@ class TranslationsService {
         );
     }
 
-    searchTranslationsField(text, cb) {
+    static searchTranslationsField(text, cb) {
+        const db = getCollection('test');
         db.get().collection('translations').find(
             {
                 $or: [
@@ -58,7 +62,8 @@ class TranslationsService {
         );
     }
 
-    createTranslation(data, cb) {
+    static createTranslation(data, cb) {
+        const db = getCollection('test');
         const newTranslation = {
             key: data.key,
             values: {
@@ -78,7 +83,8 @@ class TranslationsService {
         );
     }
 
-    changeTranslation(id, data, cb) {
+    static changeTranslation(id, data, cb) {
+        const db = getCollection('test');
         db.get().collection('translations').updateOne(
             { _id: ObjectID(id)},
             data,
@@ -88,7 +94,9 @@ class TranslationsService {
         );
     }
 
-    deleteTranslation(id, cb) {
+
+    static deleteTranslation(id, cb) {
+        const db = getCollection('test');
         db.get().collection('translations').remove(
             { _id: ObjectID(id)},
             function (err, result) {
@@ -97,5 +105,3 @@ class TranslationsService {
         );
     }
 }
-
-module.exports = TranslationsService;

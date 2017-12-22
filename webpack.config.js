@@ -1,7 +1,9 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 module.exports = {
-    entry: './src/index.jsx',
+    entry: './src/client/index.jsx',
 
     output: {
         filename: 'bundle.js',
@@ -20,20 +22,83 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['es2015', 'react']
+                            cacheDirectory: true,
+                            presets: ['es2015', 'react'],
+                            plugins: [
+                                "transform-decorators-legacy",
+                                ["transform-async-to-module-method", {
+                                    "module": "bluebird",
+                                    "method": "coroutine"
+                                }]
+                            ],
+
+
                         }
                     },
                     {
                         loader: 'eslint-loader'
                     }
                 ]
+            },
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            query: {
+                                modules: true,
+                                sourceMap: true,
+                                importLoaders: 2,
+                                localIdentName: '[name]__[local]___[hash:base64:5]'
+                            }
+                        },
+                        'sass-loader'
+                    ]
+                }),
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: "babel-loader"
+                    },
+                    {
+                        loader: "react-svg-loader",
+                        options: {
+                            jsx: true, // true outputs JSX tags
+                            svgo: {
+                                plugins: [
+                                    { removeTitle: false }
+                                ],
+                                floatPrecision: 2
+                            },
+
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(gif|png|jpg|jpeg)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'assets/[name].[ext]'
+                        }
+                    }
+                ],
             }
         ]
     },
-
+    plugins: [
+        new ExtractTextPlugin('style.css')
+    ],
     devServer: {
         proxy: {
-            '/api': 'http://localhost:3000'
+            '/api': 'http://localhost:8000'
         }
     },
 

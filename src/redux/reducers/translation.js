@@ -4,7 +4,7 @@ import {
     HIDE_DETAIL,
     CHANGE_DETAIL,
     DELETE_TRANSLATION
-} from '../actions/index';
+} from '../actions';
 
 function reducer(state = {}, action) {
     switch (action.type) {

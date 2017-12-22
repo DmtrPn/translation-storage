@@ -4,7 +4,7 @@ import TranslationNew from './TranslationNew';
 
 function List(props) {
     return (
-        <section className="todo-list">
+        <section className="null">
             {props.translations.map(translation =>
                 <TranslationNew
                     key={translation._id}
@@ -20,16 +20,5 @@ function List(props) {
         </section>
     );
 }
-//
-// List.propTypes = {
-//     todos: React.PropTypes.arrayOf(React.PropTypes.shape({
-//         id: React.PropTypes.number.isRequired,
-//         title: React.PropTypes.string.isRequired,
-//         completed: React.PropTypes.bool.isRequired
-//     })).isRequired,
-//     onDelete: React.PropTypes.func.isRequired,
-//     onToggle: React.PropTypes.func.isRequired,
-//     onEdit: React.PropTypes.func.isRequired
-// };
 
 export default List;
